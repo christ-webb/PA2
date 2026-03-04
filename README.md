@@ -53,3 +53,16 @@ In this example with the cache capacity of 3 and a repeating cycle of 4 items, L
 
 
 ### Question 3: Prove OPTFF is Optimal
+Let OPTFF be Belady's Farthest-in-Future algorithm and A be any offline algorithm that knows the full request. The number of misses of OPTFF is no larger than that of A on any fixed sequence. 
+
+Assume A differs from OPTFF at the first eviction decision where both have the same items in their cache. At that step OPTFF will evict the item whose next request occurs farthest in the future and A evicts a different item. 
+
+In this instance, let x = the specific item selected for eviction by OPTFF and y = the different item selected for eviction by A. 
+
+Since OPTFF chooses the item farthest in the future, the next time y is need must occur either before or at the same moment as the next time x is needed. 
+
+Additionally, algorithm A will inevitably face a cache mis for y while OPTFF stilll holds y in its cache. We can therefore adjust A to create a modified strategy, A', which opts to evict x instead of y at this step. This modification ensures that A' retains y for its upcoming request, whereas the original algorithm would have suffered an additional miss to bring y back into the cache. 
+
+By making this switch, the total number of misses is reduced or maintained because x is not needed until a point further in the future than y. By repeatedly applying this swap to every point where a strategy differs from OPTFF, we can transform any optimal offline approach into the OPTFF aproach. 
+
+Since this transformation never increases the number of misses, it follows that OPTFF is at least as efficient as any other offline algorithm. **Therefore, OPTFF is optimal**
